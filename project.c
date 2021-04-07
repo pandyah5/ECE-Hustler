@@ -48,7 +48,8 @@ void clear_screen();
 void draw_line(int x0, int x1, int y0, int y1, short int line_color);
 void plot_pixel(int x, int y, short int line_color);
 void draw_poly(int num_vertices, int *vertices, short int color);
-
+void wait_for_vsync();
+void write_char(int x, int y, char c);
 volatile int pixel_buffer_start; // global variable
 
 int main(void)
@@ -65,9 +66,18 @@ int main(void)
         plot_pixel(x, y, RED);
       }
     }
-    int num_vertices = 3;
-    int vertices[6] = {100, 150, 150, 190, 200, 100};
-    draw_poly(num_vertices, vertices, MAGENTA);
+    // int num_vertices = 3;
+    // int vertices[6] = {100, 150, 150, 190, 200, 100};
+    // draw_poly(num_vertices, vertices, MAGENTA);
+
+
+   char* hw = "Hello, world!";
+   int x_char = 15;
+   while (*hw) {
+     write_char(x_char, 10, *hw);
+  	 x++;
+  	 hw++;
+   }
 }
 
 // code not shown for clear_screen() and draw_line() subroutines
@@ -150,6 +160,26 @@ void draw_poly(int num_vertices, int *vertices, short int color){
          color);
 
 }
+
+void wait_for_vsync(){
+  volatile int * pixel_ctrl_ptr = (int *)0xFF203020;
+  int status = 0;
+  //launch the swap process
+  *pixel_ctrl_ptr = 1; //set S bit to 1
+  //poll the status bit in the status register
+  status = *(pixel_ctrl_ptr + 3);
+  while ((status & 0x01) != 0) {
+    status = *(pixel_ctrl_ptr + 3);
+  }
+  //done so exit
+}
+
+void write_char(int x, int y, char c) {
+  // VGA character buffer
+  volatile char * character_buffer = (char *) (0xC9000000 + (y<<7) + x);
+  *character_buffer = c;
+}
+
 
 void plot_pixel(int x, int y, short int line_color)
 {
