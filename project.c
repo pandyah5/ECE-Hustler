@@ -57,40 +57,102 @@ void draw_background();
 void draw_line(int x0, int x1, int y0, int y1, short int line_color);
 void plot_pixel(int x, int y, short int line_color);
 void draw_poly(int num_vertices, int *vertices, short int color);
+
+void write_char(int x, int y, char c);
+
+
 void draw_player_pos1(int x, int y, int mode);
 void clear_player_pos1(int x, int y, int mode);
-void clear_player_pos1(int x, int y, int mode);
+
 void delay(int count);
 
 void wait_for_vsync();
-short int convert_to_32_bits(int color);
 
+short int convert_to_32_bits(int color);
 volatile int pixel_buffer_start; // global variable
 
 int main(void){
     volatile int * pixel_ctrl_ptr = (int *)0xFF203020;
     /* Read location of the pixel buffer from the pixel buffer controller */
+    *(pixel_ctrl_ptr + 1) = 0xC8000000; // first store the address in the
+                                        // back buffer
+
+    /* now, swap the front/back buffers, to set the front buffer location */
+    wait_for_vsync();
+    /* initialize a pointer to the pixel buffer, used by drawing functions */
     pixel_buffer_start = *pixel_ctrl_ptr;
+    clear_screen();
+    /* set back pixel buffer to start of SDRAM memory */
+    *(pixel_ctrl_ptr + 1) = 0xC0000000;
+    pixel_buffer_start = *(pixel_ctrl_ptr + 1); // we draw on the back buffer
 
     clear_screen();
-
+    int mode_current = 1;
+    int mode_save = 1;
     draw_background();
+    wait_for_vsync();
+    pixel_buffer_start = *(pixel_ctrl_ptr + 1); // we draw on the back buffer
+    draw_background();
+
+    wait_for_vsync();
+    pixel_buffer_start = *(pixel_ctrl_ptr + 1); // we draw on the back buffer
     while(1){
-        draw_player_pos1(0, 100, 1);
-        wait_for_vsync();
-        delay(500000000);
-        clear_player_pos1(0, 100, 1);
-        wait_for_vsync();
-        draw_player_pos1(0, 100, 2);
-        wait_for_vsync();
-        delay(500000000);
-        clear_player_pos1(0, 100, 2);
-        wait_for_vsync();
-        draw_player_pos1(0, 100, 3);
-        wait_for_vsync();
-        delay(500000000);
-        clear_player_pos1(0, 100, 3);
+        // draw_player_pos1(0, 100, 1);
+        // wait_for_vsync();
+        // delay(500000000);
+        // clear_player_pos1(0, 100, 1);
+        // wait_for_vsync();
+        // draw_player_pos1(0, 100, 2);
+        // wait_for_vsync();
+        // delay(500000000);
+        // clear_player_pos1(0, 100, 2);
+        // wait_for_vsync();
+        // draw_player_pos1(0, 100, 3);
+        // wait_for_vsync();
+        // delay(500000000);
+        // clear_player_pos1(0, 100, 3);
+
+        //double buffering:
+
+        //erase first
+        clear_player_pos1(0, 100, mode_save);
+
+        //now draw
+        draw_player_pos1(0, 100, mode_current);
+
+        //update mode and save
+        if(mode_current == 3){
+          mode_current = 1;
+        }
+        else{
+          mode_current += 1;
+        }
+
+        if(mode_current == 1){
+          mode_save = 2;
+        }
+
+        else if(mode_current == 2){
+          mode_save = 3;
+        }
+
+        else if(mode_current == 3){
+          mode_save = 1;
+        }
+        //delay(500000000);
+        wait_for_vsync(); // swap front and back buffers on VGA vertical sync
+        pixel_buffer_start = *(pixel_ctrl_ptr + 1); // new back buffer
+
     }
+   // char* hw = "Hello, world!";
+   // int x_char = 15;
+   // while (*hw) {
+   //   write_char(x_char, 10, *hw);
+  	//  x_char++;
+  	//  hw++;
+   //  }
+    // draw_player_pos1(0, 0);
+
 }
 
 void clear_screen(){
@@ -176,7 +238,28 @@ void draw_poly(int num_vertices, int *vertices, short int color){
          color);
 }
 
-void plot_pixel(int x, int y, short int line_color){
+void wait_for_vsync(){
+  volatile int * pixel_ctrl_ptr = (int *)0xFF203020;
+  int status = 0;
+  //launch the swap process
+  *pixel_ctrl_ptr = 1; //set S bit to 1
+  //poll the status bit in the status register
+  status = *(pixel_ctrl_ptr + 3);
+  while ((status & 0x01) != 0) {
+    status = *(pixel_ctrl_ptr + 3);
+  }
+  //done so exit
+}
+
+void write_char(int x, int y, char c) {
+  // VGA character buffer
+  volatile char * character_buffer = (char *) (0xC9000000 + (y<<7) + x);
+  *character_buffer = c;
+}
+
+
+void plot_pixel(int x, int y, short int line_color)
+{
     *(short int *)(pixel_buffer_start + (y << 10) + (x << 1)) = line_color;
 }
 
@@ -234,13 +317,13 @@ short int convert_to_32_bits(int color){
     return (((color & 0xf80000)>>8) + ((color & 0xfc00)>>5) + ((color & 0xf8)>>3));
 }
 
-void wait_for_vsync(){
-    volatile int *pixel_ctrl_ptr = 0xFF203020;
-    register int status;
-    *pixel_ctrl_ptr = 1;
-
-    status = *(pixel_ctrl_ptr + 3);
-    while((status & 0x01) != 0){
-        status = *(pixel_ctrl_ptr + 3);
-    }
-}
+// void wait_for_vsync(){
+//     volatile int *pixel_ctrl_ptr = 0xFF203020;
+//     register int status;
+//     *pixel_ctrl_ptr = 1;
+//
+//     status = *(pixel_ctrl_ptr + 3);
+//     while((status & 0x01) != 0){
+//         status = *(pixel_ctrl_ptr + 3);
+//     }
+// }
