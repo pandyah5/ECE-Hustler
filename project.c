@@ -131,7 +131,7 @@ int main(void){
     wait_for_vsync();
     pixel_buffer_start = *(pixel_ctrl_ptr + 1); // we draw on the back buffer
 
-    int obst_id = 0;
+    int obst_id = 0; // Starting point
 
     // Global variable that stores the score of the player
     int score = 100;
