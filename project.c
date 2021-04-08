@@ -251,8 +251,8 @@ void draw_obstacle(struct obstacle object, int obst_id){
 
 void clear_obstacle(struct obstacle object, int obst_id){
     if (obst_id == object.id){
-        for (int j = object.y; j < object.y + object.dim_y; j++){
-            for (int i = object.x; i < object.x + object.dim_x; i++){
+        for (int j = object.y; j <= object.y + object.dim_y + 1; j++){
+            for (int i = object.x; i <= object.x + object.dim_x + 1; i++){
                 plot_pixel(i, j, WHITE);
             }
         }
