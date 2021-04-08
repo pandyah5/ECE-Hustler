@@ -97,6 +97,7 @@ void draw_player_pos(int x, int y, int mode);
 void clear_player_pos(int x, int y, int mode);
 void draw_obstacle(struct obstacle object, int obst_id);
 void clear_obstacle(struct obstacle object, int obst_id);
+void collision_check(int obst_id);
 void update_obst_id(int* obst_id);
 
 // Vector of obstacle ID's
@@ -106,6 +107,10 @@ void wait_for_vsync();
 
 short int convert_to_32_bits(int color);
 volatile int pixel_buffer_start; // global variable
+
+//Global player position
+int player_x = 40, player_y = 150;
+int player_dim_x = 59, player_dim_y = 89;
 
 int main(void){
     volatile int * pixel_ctrl_ptr = (int *)0xFF203020;
@@ -150,8 +155,9 @@ int main(void){
 	obstacles_list[0].dim_y = 30;
 	obstacles_list[0].x = 319;
 	obstacles_list[0].y = 150;
-//2: 216 obst 2
-  obstacles_list[1].id = 1;
+
+    //2: 216 obst 2 - Audio wave
+    obstacles_list[1].id = 1;
 	obstacles_list[1].course_id = 216;
 	obstacles_list[1].points = 20;
 	obstacles_list[1].pass = 1;
@@ -159,10 +165,10 @@ int main(void){
 	obstacles_list[1].dim_x = 127;
 	obstacles_list[1].dim_y = 50;
 	obstacles_list[1].x = 319;
-	obstacles_list[1].y = 150;
+	obstacles_list[1].y = 100;
 
-	// 3: 216 obst 3 55,54
-  obstacles_list[2].id = 2;
+	// 3: 216 obst 3 55,54 - MATLAB
+    obstacles_list[2].id = 2;
 	obstacles_list[2].course_id = 216;
 	obstacles_list[2].points = 40;
 	obstacles_list[2].pass = 1;
@@ -172,8 +178,8 @@ int main(void){
 	obstacles_list[2].x = 319;
 	obstacles_list[2].y = 150;
 
-  // 4: 221 obst 1  160,35
-  obstacles_list[3].id = 3;
+  // 4: 221 obst 1  160,35 - NO BACKTRACKING
+    obstacles_list[3].id = 3;
 	obstacles_list[3].course_id = 221;
 	obstacles_list[3].points = 40;
 	obstacles_list[3].pass = 1;
@@ -182,6 +188,7 @@ int main(void){
 	obstacles_list[3].dim_y = 35;
 	obstacles_list[3].x = 319;
 	obstacles_list[3].y = 150;
+
 
   // 5: 221 obst 2  105,86- Q7
   obstacles_list[4].id = 4;
@@ -240,7 +247,9 @@ int main(void){
 	/*---------------------------------------------------------------------*/
 
     int i = 0, points;
+    int prev_id;
     while(obst_id < 9){
+
         // Double buffering:
 
         // Erase first
@@ -252,8 +261,13 @@ int main(void){
         i++;
 
         // Now draw
+
         draw_player_pos(40, 150, mode_current);
         draw_obstacle(obstacles_list[obst_id], obst_id);
+        collision_check(obst_id);
+        if(obstacles_list[obst_id].pass == 0){
+            clear_obstacle(obstacles_list[obst_id], obst_id);
+        }
 
         points = i % 100;
         draw_grade_bar(points);
@@ -313,11 +327,18 @@ void clear_obstacle(struct obstacle object, int obst_id){
 
 void update_obst_id(int* obst_id){
     struct obstacle* temp = &(obstacles_list[*obst_id]);
-    if (temp->x + temp->dim_x > 1){
+    if (temp->x + temp->dim_x > 1 && temp->pass == 1){
         temp->x -= 2;
     }
     else{
         *obst_id += 1;
+    }
+}
+
+void collision_check(int obst_id){
+    struct obstacle* temp = &(obstacles_list[obst_id]);
+    if((temp->x < player_x + player_dim_x) && (temp->x + temp->dim_x > player_x) && (temp->y < player_y + player_dim_y) && (temp->y + temp->dim_y > player_y)){
+        temp->pass = 0;
     }
 }
 
