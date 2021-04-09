@@ -487,13 +487,19 @@ int main(void){
             restart = 1;
         }
     }
+    while(restart){
+      data = *(KEY_ptr);
+      if (data != 4){
+          restart = 0;
+      }
+    }
     //clear_screen();
     wait_for_vsync(); // swap front and back buffers on VGA vertical sync
     pixel_buffer_start = *(pixel_ctrl_ptr + 1); // new back buffer
     draw_background();
 
-    restart = 0;
-    obst_id = 1;
+    obst_id = 0;
+    points = 100;
 
     // Draw new background
 
@@ -506,7 +512,8 @@ int main(void){
     //  }
     // draw_player_pos(0, 0);
     }
-}
+
+}//main ends
 
 void draw_obstacle(struct obstacle object, int obst_id){
     if (obst_id == object.id && object.pass == 1){
