@@ -478,10 +478,11 @@ int main(void){
             wait_for_vsync(); // swap front and back buffers on VGA vertical sync
             pixel_buffer_start = *(pixel_ctrl_ptr + 1); // new back buffer
         }
-        // Draw game over
-        draw_game_over();
-        wait_for_vsync(); // swap front and back buffers on VGA vertical sync
-        pixel_buffer_start = *(pixel_ctrl_ptr + 1); // new back buffer
+
+    // Draw game over
+    draw_game_over();
+    wait_for_vsync(); // swap front and back buffers on VGA vertical sync
+    pixel_buffer_start = *(pixel_ctrl_ptr + 1); // new back buffer
 
     while(!restart){
         data = *(KEY_ptr);
@@ -489,15 +490,20 @@ int main(void){
             restart = 1;
         }
     }
-    //clear_screen();
+    
+    while(restart){
+        data = *(KEY_ptr);
+        if (data != 4){
+            restart = 0;
+        }
+    }
+
+    draw_background();
     wait_for_vsync(); // swap front and back buffers on VGA vertical sync
     pixel_buffer_start = *(pixel_ctrl_ptr + 1); // new back buffer
     draw_background();
-
-    restart = 0;
-    obst_id = 1;
-
-    // Draw new background
+    points = 100;
+    obst_id = 0;
 
     // char* hw = "Hello, world!";
     // int x_char = 15;
