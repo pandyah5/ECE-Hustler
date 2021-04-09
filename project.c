@@ -170,7 +170,7 @@ int main(void){
 	obstacles_list[0].dim_x = 90;
 	obstacles_list[0].dim_y = 30;
 	obstacles_list[0].x = 319;
-	obstacles_list[0].y = 140;
+	obstacles_list[0].y = 155;
 
     //2: 216 obst 2 - Audio wave
     obstacles_list[1].id = 1;
@@ -192,7 +192,7 @@ int main(void){
 	obstacles_list[2].dim_x = 55;
 	obstacles_list[2].dim_y = 54;
 	obstacles_list[2].x = 319;
-	obstacles_list[2].y = 150;
+	obstacles_list[2].y = 200;
 
   // 4: 221 obst 1  160,35 - NO BACKTRACKING
     obstacles_list[3].id = 3;
@@ -429,6 +429,12 @@ void update_obst_id(int* obst_id){
     struct obstacle* temp = &(obstacles_list[*obst_id]);
     if (temp->x + temp->dim_x > 1 && temp->pass == 1){
         temp->x -= 2;
+        if (temp->y < 150 && temp->y > 20){
+            if (rand() % 2 == 0)
+                temp->y += 3;
+            else
+                temp->y -= 3;
+        }
     }
     else{
         *obst_id += 1;
