@@ -221,7 +221,7 @@ int main(void){
   obstacles_list[4].dim_x = 105;
   obstacles_list[4].dim_y = 86;
   obstacles_list[4].x = 319;
-  obstacles_list[4].y = 100;
+  obstacles_list[4].y = 110;
 
   // 6: 231 obst 1 84,64 - LT Spice
   obstacles_list[5].id = 5;
@@ -243,7 +243,7 @@ int main(void){
   obstacles_list[6].dim_x = 168;
   obstacles_list[6].dim_y = 33;
   obstacles_list[6].x = 319;
-  obstacles_list[6].y = 100;
+  obstacles_list[6].y = 120;
 
   // 8: 243 obst 1  141, 54 - Modelsim logo
   obstacles_list[7].id = 7;
@@ -254,7 +254,7 @@ int main(void){
   obstacles_list[7].dim_x = 141;
   obstacles_list[7].dim_y = 54;
   obstacles_list[7].x = 319;
-  obstacles_list[7].y = 100;
+  obstacles_list[7].y = 110;
 
   // 9: 243 obst 2  98,96 - processor
   obstacles_list[8].id = 8;
@@ -265,7 +265,7 @@ int main(void){
   obstacles_list[8].dim_x = 98;
   obstacles_list[8].dim_y = 96;
   obstacles_list[8].x = 319;
-  obstacles_list[8].y = 80;
+  obstacles_list[8].y = 110;
 	/*---------------------------------------------------------------------*/
 
     int i = 0, points;
@@ -273,7 +273,7 @@ int main(void){
 
     volatile int * KEY_ptr = (int *) 0xFF200050;
     int data; int duck = 0; int jump = 0; int jump_prev_mode = 3;
-    int play = 1; int restart = 0;
+    int play = 1; int restart = 0; int jump_delay = 5;
     while(1){
         while(obst_id < 15){
             // Double buffering:
@@ -431,9 +431,10 @@ void draw_obstacle(struct obstacle object, int obst_id){
 
 void clear_obstacle(struct obstacle object, int obst_id){
     if (obst_id == object.id){
-        for (int j = object.y; j <= object.y + object.dim_y + 1; j++){
-            for (int i = object.x; i <= object.x + object.dim_x + 1; i++){
-                plot_pixel(i, j, WHITE);
+        for (int j = object.y - 5; j <= object.y + object.dim_y + 5; j++){
+            for (int i = object.x - 5; i <= object.x + object.dim_x + 5; i++){
+                if(i < 319 && j < 239 && i > 0 && j > 0)
+                    plot_pixel(i, j, WHITE);
             }
         }
     }
@@ -442,12 +443,15 @@ void clear_obstacle(struct obstacle object, int obst_id){
 void update_obst_id(int* obst_id){
     struct obstacle* temp = &(obstacles_list[*obst_id]);
     if (temp->x + temp->dim_x > 1 && temp->pass == 1){
-        temp->x -= 2;
-        if (temp->y < 150 && temp->y > 20){
+        temp->x -= 5;
+        if (temp->y < 160 && temp->y > 70){
             if (rand() % 2 == 0)
-                temp->y += 3;
+                temp->y += 2;
             else
-                temp->y -= 3;
+                temp->y -= 2;
+        }
+        else if(temp->y < 70){
+            temp->y += 20;
         }
     }
     else{
@@ -643,7 +647,7 @@ void draw_background(){
 
 void draw_game_over(){
     for (int j = 0; j < 240; j++){
-        for (int i = 8; i < 320; i++){
+        for (int i = 0; i < 320; i++){
                 int color_of_pixel =  game_over[j*320 + i];
                 plot_pixel(i, j, convert_to_32_bits(color_of_pixel));
         }
