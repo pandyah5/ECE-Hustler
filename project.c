@@ -351,7 +351,7 @@ int main(void){
 
     volatile int * KEY_ptr = (int *) 0xFF200050;
     int data; int duck = 0; int jump = 0; int jump_prev_mode = 3;
-    int play = 1; int restart = 0; int jump_delay = 5;
+    int play = 1; int restart = 0; int jump_delay = 7;
     while(1){
         while(obst_id < 15){
             // Double buffering:
@@ -443,7 +443,16 @@ int main(void){
               mode_current = 1;
             }
             else if (mode_current != 4){
-              mode_current += 1;
+              if(mode_current == 7 && jump_delay <= 0){
+                  jump_delay = 7;
+                  mode_current += 1;
+              }
+              else if (mode_current == 7 && jump_delay != 0){
+                  jump_delay -= 1;
+              }
+              else{
+                mode_current += 1;
+                }
             }
             else if (mode_current == 4 && duck == 1){
                 mode_current = 4;
