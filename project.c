@@ -182,18 +182,18 @@ int main(void){
 	// 1: ECE_216 - Obstacle 1 - Sin wave
 	obstacles_list[0].id = 0;
 	obstacles_list[0].course_id = 216;
-	obstacles_list[0].points = 40;
+	obstacles_list[0].points = 8;
 	obstacles_list[0].pass = 1;
 	obstacles_list[0].image = obst_216_1;
 	obstacles_list[0].dim_x = 90;
 	obstacles_list[0].dim_y = 30;
 	obstacles_list[0].x = 319;
-	obstacles_list[0].y = 155;
+	obstacles_list[0].y = 140;
 
     //2: 216 obst 2 - Audio wave
     obstacles_list[1].id = 1;
 	obstacles_list[1].course_id = 216;
-	obstacles_list[1].points = 20;
+	obstacles_list[1].points = 8;
 	obstacles_list[1].pass = 1;
 	obstacles_list[1].image = obst_216_2;
 	obstacles_list[1].dim_x = 127;
@@ -204,18 +204,18 @@ int main(void){
 	// 3: 216 obst 3 55,54 - MATLAB
     obstacles_list[2].id = 2;
 	obstacles_list[2].course_id = 216;
-	obstacles_list[2].points = 40;
+	obstacles_list[2].points = 7;
 	obstacles_list[2].pass = 1;
 	obstacles_list[2].image = obst_216_3;
 	obstacles_list[2].dim_x = 55;
 	obstacles_list[2].dim_y = 54;
 	obstacles_list[2].x = 319;
-	obstacles_list[2].y = 200;
+	obstacles_list[2].y = 150;
 
   // 4: 221 obst 1  160,35 - NO BACKTRACKING
     obstacles_list[3].id = 3;
 	obstacles_list[3].course_id = 221;
-	obstacles_list[3].points = 40;
+	obstacles_list[3].points = 8;
 	obstacles_list[3].pass = 1;
 	obstacles_list[3].image = obst_221_1;
 	obstacles_list[3].dim_x = 160;
@@ -227,18 +227,18 @@ int main(void){
   // 5: 221 obst 2  105,86- Q7
   obstacles_list[4].id = 4;
   obstacles_list[4].course_id = 221;
-  obstacles_list[4].points = 40;
+  obstacles_list[4].points = 8;
   obstacles_list[4].pass = 1;
   obstacles_list[4].image = obst_221_2;
   obstacles_list[4].dim_x = 105;
   obstacles_list[4].dim_y = 86;
   obstacles_list[4].x = 319;
-  obstacles_list[4].y = 110;
+  obstacles_list[4].y = 100;
 
   // 6: 231 obst 1 84,64 - LT Spice
   obstacles_list[5].id = 5;
   obstacles_list[5].course_id = 231;
-  obstacles_list[5].points = 40;
+  obstacles_list[5].points = 7;
   obstacles_list[5].pass = 1;
   obstacles_list[5].image = obst_231_1;
   obstacles_list[5].dim_x = 84;
@@ -249,40 +249,41 @@ int main(void){
   // 7: 231 obst 2  168,33 - 231 equation
   obstacles_list[6].id = 6;
   obstacles_list[6].course_id = 231;
-  obstacles_list[6].points = 40;
+  obstacles_list[6].points = 8;
   obstacles_list[6].pass = 1;
   obstacles_list[6].image = obst_231_2;
   obstacles_list[6].dim_x = 168;
   obstacles_list[6].dim_y = 33;
   obstacles_list[6].x = 319;
-  obstacles_list[6].y = 120;
+  obstacles_list[6].y = 100;
 
   // 8: 243 obst 1  141, 54 - Modelsim logo
   obstacles_list[7].id = 7;
   obstacles_list[7].course_id = 243;
-  obstacles_list[7].points = 40;
+  obstacles_list[7].points = 7;
   obstacles_list[7].pass = 1;
   obstacles_list[7].image = obst_243_1;
   obstacles_list[7].dim_x = 141;
   obstacles_list[7].dim_y = 54;
   obstacles_list[7].x = 319;
-  obstacles_list[7].y = 110;
+  obstacles_list[7].y = 100;
 
   // 9: 243 obst 2  98,96 - processor
   obstacles_list[8].id = 8;
   obstacles_list[8].course_id = 243;
-  obstacles_list[8].points = 40;
+  obstacles_list[8].points = 8;
   obstacles_list[8].pass = 1;
   obstacles_list[8].image = obst_243_2;
   obstacles_list[8].dim_x = 98;
   obstacles_list[8].dim_y = 96;
   obstacles_list[8].x = 319;
-  obstacles_list[8].y = 110;
+  obstacles_list[8].y = 80;
+
 
   // 10: 221 obst 3(lifeline)  100,68 - curve
     obstacles_list[9].id = 9;
     obstacles_list[9].course_id = 221;
-    obstacles_list[9].points = -40;
+    obstacles_list[9].points = -7;
     obstacles_list[9].pass = 1; //remember to change this because this is a lifeline
     obstacles_list[9].image = obst_221_3;
     obstacles_list[9].dim_x = 100;
@@ -293,7 +294,7 @@ int main(void){
     // 11: 297 obst 1  97,63 -GIS
     obstacles_list[10].id = 10;
     obstacles_list[10].course_id = 297;
-    obstacles_list[10].points = 40;
+    obstacles_list[10].points = 8;
     obstacles_list[10].pass = 1;
     obstacles_list[10].image = obst_297_1;
     obstacles_list[10].dim_x = 97;
@@ -304,7 +305,7 @@ int main(void){
     // 12: 297 obst 2  113,64 -presentation
     obstacles_list[11].id = 11;
     obstacles_list[11].course_id = 297;
-    obstacles_list[11].points = 40;
+    obstacles_list[11].points = 7;
     obstacles_list[11].pass = 1;
     obstacles_list[11].image = obst_297_2;
     obstacles_list[11].dim_x = 113;
@@ -315,7 +316,7 @@ int main(void){
     // 13: 231 obst 3  93,35 - mid term average
     obstacles_list[12].id = 12;
     obstacles_list[12].course_id = 231;
-    obstacles_list[12].points = 40;
+    obstacles_list[12].points = 8;
     obstacles_list[12].pass = 1;
     obstacles_list[12].image = obst_231_3;
     obstacles_list[12].dim_x = 93;
@@ -326,7 +327,7 @@ int main(void){
     // 14: 297 obst 3  123,51 - algorithms
     obstacles_list[13].id = 13;
     obstacles_list[13].course_id = 297;
-    obstacles_list[13].points = 40;
+    obstacles_list[13].points = 8;
     obstacles_list[13].pass = 1;
     obstacles_list[13].image = obst_297_3;
     obstacles_list[13].dim_x = 123;
@@ -337,7 +338,7 @@ int main(void){
     // 15: 243 obst 3(lifeline)  125,24 - new grading scheme
     obstacles_list[14].id = 14;
     obstacles_list[14].course_id = 243;
-    obstacles_list[14].points = -40;
+    obstacles_list[14].points = -8;
     obstacles_list[14].pass = 1;// remember to change this because this is a lifeline
     obstacles_list[14].image = obst_243_3;
     obstacles_list[14].dim_x = 125;
@@ -345,13 +346,15 @@ int main(void){
     obstacles_list[14].x = 319;
     obstacles_list[14].y = 100;
 
+
 	/*---------------------------------------------------------------------*/
+
 
     int prev_id;
 
     volatile int * KEY_ptr = (int *) 0xFF200050;
     int data; int duck = 0; int jump = 0; int jump_prev_mode = 3;
-    int play = 1; int restart = 0; int jump_delay = 5;
+    int play = 1; int restart = 0;
     while(1){
         while(obst_id < 15){
             // Double buffering:
@@ -508,10 +511,9 @@ void draw_obstacle(struct obstacle object, int obst_id){
 
 void clear_obstacle(struct obstacle object, int obst_id){
     if (obst_id == object.id){
-        for (int j = object.y - 5; j <= object.y + object.dim_y + 5; j++){
-            for (int i = object.x - 5; i <= object.x + object.dim_x + 5; i++){
-                if(i < 319 && j < 239 && i > 0 && j > 0)
-                    plot_pixel(i, j, WHITE);
+        for (int j = object.y; j <= object.y + object.dim_y + 1; j++){
+            for (int i = object.x; i <= object.x + object.dim_x + 1; i++){
+                plot_pixel(i, j, WHITE);
             }
         }
     }
@@ -520,16 +522,7 @@ void clear_obstacle(struct obstacle object, int obst_id){
 void update_obst_id(int* obst_id){
     struct obstacle* temp = &(obstacles_list[*obst_id]);
     if (temp->x + temp->dim_x > 1 && temp->pass == 1){
-        temp->x -= 5;
-        if (temp->y < 160 && temp->y > 70){
-            if (rand() % 2 == 0)
-                temp->y += 2;
-            else
-                temp->y -= 2;
-        }
-        else if(temp->y < 70){
-            temp->y += 20;
-        }
+        temp->x -= 2;
     }
     else{
         *obst_id += 1;
@@ -543,6 +536,7 @@ void collision_check(int obst_id, int mode){
             temp->pass = 0;
 
             points -= temp->points;
+            printf("%d\n", points);
             if(points > 100){
               points = 100;
             }
@@ -553,41 +547,76 @@ void collision_check(int obst_id, int mode){
     else if (mode == 5){
         if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 140 + player_duck_dimy) && (temp->y + temp->dim_y > 140)){
             temp->pass = 0;
+            points -= temp->points;
+            printf("%d\n", points);
+            if(points > 100){
+              points = 100;
+            }
 			printf("Jump collide \n");
         }
     }
     else if (mode == 6){
         if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 130 + player_duck_dimy) && (temp->y + temp->dim_y > 130)){
             temp->pass = 0;
+            points -= temp->points;
+            printf("%d\n", points);
+            if(points > 100){
+              points = 100;
+            }
 			printf("Jump collide \n");
         }
     }
     else if (mode == 7){
         if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 120 + player_duck_dimy) && (temp->y + temp->dim_y > 120)){
             temp->pass = 0;
+            points -= temp->points;
+            printf("%d\n", points);
+            if(points > 100){
+              points = 100;
+            }
 			printf("Jump collide \n");
         }
     }
     else if (mode == 8){
         if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 120 + player_duck_dimy) && (temp->y + temp->dim_y > 120)){
             temp->pass = 0;
+            points -= temp->points;
+            printf("%d\n", points);
+            if(points > 100){
+              points = 100;
+            }
 			printf("Jump collide \n");
         }
     }
     else if (mode == 9){
         if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 130 + player_duck_dimy) && (temp->y + temp->dim_y > 130)){
             temp->pass = 0;
+            points -= temp->points;
+            printf("%d\n", points);
+            if(points > 100){
+              points = 100;
+            }
 			printf("Jump collide \n");
         }
     }
     else if (mode == 10){
         if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 140 + player_duck_dimy) && (temp->y + temp->dim_y > 140)){
             temp->pass = 0;
+            points -= temp->points;
+            printf("%d\n", points);
+            if(points > 100){
+              points = 100;
+            }
 			printf("Jump collide \n");
         }
     }
     else if((temp->x < player_x + player_dim_x) && (temp->x + temp->dim_x > player_x) && (temp->y < player_y + player_dim_y) && (temp->y + temp->dim_y > player_y)){
         temp->pass = 0;
+        points -= temp->points;
+        printf("%d\n", points);
+        if(points > 100){
+          points = 100;
+        }
 		printf("Normal collide \n");
     }
 }
