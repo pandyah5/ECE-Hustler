@@ -114,6 +114,8 @@ struct obstacle {
     int* image;
 };
 
+#define COLLISION_MARGIN 25
+
 void clear_screen();
 void draw_background();
 void draw_line(int x0, int x1, int y0, int y1, short int line_color);
@@ -221,7 +223,7 @@ int main(void){
 	obstacles_list[3].dim_x = 160;
 	obstacles_list[3].dim_y = 35;
 	obstacles_list[3].x = 319;
-	obstacles_list[3].y = 150;
+	obstacles_list[3].y = 140;
 
 
   // 5: 221 obst 2  105,86- Q7
@@ -543,7 +545,6 @@ void clear_obstacle(struct obstacle object, int obst_id){
 void update_obst_id(int* obst_id){
     struct obstacle* temp = &(obstacles_list[*obst_id]);
     if (temp->x + temp->dim_x > 1 && temp->pass == 1){
-
         if(temp->id < 5)
             temp->x -= 5;
         else if(temp->id < 10)
@@ -570,7 +571,7 @@ void update_obst_id(int* obst_id){
 void collision_check(int obst_id, int mode){
     struct obstacle* temp = &(obstacles_list[obst_id]);
     if (mode == 4){
-        if ((temp->x < player_duck_x + player_duck_dimx) && (temp->x + temp->dim_x > player_duck_x) && (temp->y < player_duck_y + player_duck_dimy) && (temp->y + temp->dim_y > player_duck_y)){
+        if ((temp->x < player_duck_x + player_duck_dimx) && (temp->x + temp->dim_x > player_duck_x) && (temp->y < player_duck_y + player_duck_dimy) && (temp->y + temp->dim_y > player_duck_y + COLLISION_MARGIN)){
             temp->pass = 0;
 
             points -= temp->points;
@@ -583,7 +584,7 @@ void collision_check(int obst_id, int mode){
         }
     }
     else if (mode == 5){
-        if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 140 + player_duck_dimy) && (temp->y + temp->dim_y > 140)){
+        if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 135 + player_duck_dimy) && (temp->y + temp->dim_y > 135 + COLLISION_MARGIN)){
             temp->pass = 0;
             points -= temp->points;
             printf("%d\n", points);
@@ -594,7 +595,7 @@ void collision_check(int obst_id, int mode){
         }
     }
     else if (mode == 6){
-        if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 130 + player_duck_dimy) && (temp->y + temp->dim_y > 130)){
+        if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 120 + player_duck_dimy) && (temp->y + temp->dim_y > 120 + COLLISION_MARGIN)){
             temp->pass = 0;
             points -= temp->points;
             printf("%d\n", points);
@@ -605,7 +606,7 @@ void collision_check(int obst_id, int mode){
         }
     }
     else if (mode == 7){
-        if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 120 + player_duck_dimy) && (temp->y + temp->dim_y > 120)){
+        if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 100 + player_duck_dimy) && (temp->y + temp->dim_y > 100 + COLLISION_MARGIN)){
             temp->pass = 0;
             points -= temp->points;
             printf("%d\n", points);
@@ -616,7 +617,7 @@ void collision_check(int obst_id, int mode){
         }
     }
     else if (mode == 8){
-        if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 120 + player_duck_dimy) && (temp->y + temp->dim_y > 120)){
+        if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 100 + player_duck_dimy) && (temp->y + temp->dim_y > 100 + COLLISION_MARGIN)){
             temp->pass = 0;
             points -= temp->points;
             printf("%d\n", points);
@@ -627,7 +628,7 @@ void collision_check(int obst_id, int mode){
         }
     }
     else if (mode == 9){
-        if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 130 + player_duck_dimy) && (temp->y + temp->dim_y > 130)){
+        if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 120 + player_duck_dimy) && (temp->y + temp->dim_y > 120 + COLLISION_MARGIN)){
             temp->pass = 0;
             points -= temp->points;
             printf("%d\n", points);
@@ -638,7 +639,7 @@ void collision_check(int obst_id, int mode){
         }
     }
     else if (mode == 10){
-        if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 140 + player_duck_dimy) && (temp->y + temp->dim_y > 140)){
+        if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 135 + player_duck_dimy) && (temp->y + temp->dim_y > 135 + COLLISION_MARGIN)){
             temp->pass = 0;
             points -= temp->points;
             printf("%d\n", points);
@@ -648,7 +649,7 @@ void collision_check(int obst_id, int mode){
 			printf("Jump collide \n");
         }
     }
-    else if((temp->x < player_x + player_dim_x) && (temp->x + temp->dim_x > player_x) && (temp->y < player_y + player_dim_y) && (temp->y + temp->dim_y > player_y)){
+    else if((temp->x < player_x + player_dim_x) && (temp->x + temp->dim_x > player_x) && (temp->y < player_y + player_dim_y) && (temp->y + temp->dim_y > player_y + COLLISION_MARGIN)){
         temp->pass = 0;
         points -= temp->points;
         printf("%d\n", points);
