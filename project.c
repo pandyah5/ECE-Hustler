@@ -440,12 +440,48 @@ void collision_check(int obst_id, int mode){
     if (mode == 4){
         if ((temp->x < player_duck_x + player_duck_dimx) && (temp->x + temp->dim_x > player_duck_x) && (temp->y < player_duck_y + player_duck_dimy) && (temp->y + temp->dim_y > player_duck_y)){
             temp->pass = 0;
-			printf("Duck collide\n");
+			printf("Duck collide \n");
+        }
+    }
+    else if (mode == 5){
+        if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 140 + player_duck_dimy) && (temp->y + temp->dim_y > 140)){
+            temp->pass = 0;
+			printf("Jump collide \n");
+        }
+    }
+    else if (mode == 6){
+        if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 130 + player_duck_dimy) && (temp->y + temp->dim_y > 130)){
+            temp->pass = 0;
+			printf("Jump collide \n");
+        }
+    }
+    else if (mode == 7){
+        if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 120 + player_duck_dimy) && (temp->y + temp->dim_y > 120)){
+            temp->pass = 0;
+			printf("Jump collide \n");
+        }
+    }
+    else if (mode == 8){
+        if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 120 + player_duck_dimy) && (temp->y + temp->dim_y > 120)){
+            temp->pass = 0;
+			printf("Jump collide \n");
+        }
+    }
+    else if (mode == 9){
+        if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 130 + player_duck_dimy) && (temp->y + temp->dim_y > 130)){
+            temp->pass = 0;
+			printf("Jump collide \n");
+        }
+    }
+    else if (mode == 10){
+        if ((temp->x < 40 + player_duck_dimx) && (temp->x + temp->dim_x > 40) && (temp->y < 140 + player_duck_dimy) && (temp->y + temp->dim_y > 140)){
+            temp->pass = 0;
+			printf("Jump collide \n");
         }
     }
     else if((temp->x < player_x + player_dim_x) && (temp->x + temp->dim_x > player_x) && (temp->y < player_y + player_dim_y) && (temp->y + temp->dim_y > player_y)){
         temp->pass = 0;
-		printf("Normal collide\n");
+		printf("Normal collide \n");
     }
 }
 
