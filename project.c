@@ -351,7 +351,7 @@ int main(void){
 
     volatile int * KEY_ptr = (int *) 0xFF200050;
     int data; int duck = 0; int jump = 0; int jump_prev_mode = 3;
-    int play = 1; int restart = 0; int jump_delay = 7;
+    int play = 1; int restart = 0; int jump_delay = 10;
     while(1){
         while(obst_id < 15){
             // Double buffering:
@@ -378,17 +378,17 @@ int main(void){
             if (mode_save < 4)
                 clear_player_pos(40, 150, mode_save);
             else if (mode_save == 5)
-                clear_player_pos(40, 140, mode_save);
+                clear_player_pos(40, 135, mode_save);
             else if (mode_save == 6)
-                clear_player_pos(40, 130, mode_save);
+                clear_player_pos(40, 120, mode_save);
             else if (mode_save == 7)
-                clear_player_pos(40, 120, mode_save);
+                clear_player_pos(40, 100, mode_save);
             else if (mode_save == 8)
-                clear_player_pos(40, 120, mode_save);
+                clear_player_pos(40, 100, mode_save);
             else if (mode_save == 9)
-                clear_player_pos(40, 130, mode_save);
+                clear_player_pos(40, 120, mode_save);
             else if (mode_save == 10)
-                clear_player_pos(40, 140, mode_save);
+                clear_player_pos(40, 135, mode_save);
 
             clear_obstacle(obstacles_list[obst_id], obst_id);
 
@@ -401,22 +401,22 @@ int main(void){
                 draw_player_pos(40, 180, mode_current);
             }
             else if (mode_current == 5){
-                draw_player_pos(40, 140, mode_current);
+                draw_player_pos(40, 135, mode_current);
             }
             else if (mode_current == 6){
-                draw_player_pos(40, 130, mode_current);
+                draw_player_pos(40, 120, mode_current);
             }
             else if (mode_current == 7){
-                draw_player_pos(40, 120, mode_current);
+                draw_player_pos(40, 100, mode_current);
             }
             else if (mode_current == 8){
-                draw_player_pos(40, 120, mode_current);
+                draw_player_pos(40, 100, mode_current);
             }
             else if (mode_current == 9){
-                draw_player_pos(40, 130, mode_current);
+                draw_player_pos(40, 120, mode_current);
             }
             else if (mode_current == 10){
-                draw_player_pos(40, 140, mode_current);
+                draw_player_pos(40, 135, mode_current);
     			jump = 0;
             }
             else{
@@ -444,7 +444,7 @@ int main(void){
             }
             else if (mode_current != 4){
               if(mode_current == 7 && jump_delay <= 0){
-                  jump_delay = 7;
+                  jump_delay = 10;
                   mode_current += 1;
               }
               else if (mode_current == 7 && jump_delay != 0){
@@ -518,7 +518,7 @@ void draw_obstacle(struct obstacle object, int obst_id){
 void clear_obstacle(struct obstacle object, int obst_id){
     if (obst_id == object.id){
         for (int j = object.y - 5; j <= object.y + object.dim_y + 5; j++){
-            for (int i = object.x - 5; i <= object.x + object.dim_x + 5; i++){
+            for (int i = object.x - 10; i <= object.x + object.dim_x + 10; i++){
                 if(i < 319 && j < 239 && i > 0 && j > 0)
                     plot_pixel(i, j, WHITE);
             }
@@ -529,7 +529,13 @@ void clear_obstacle(struct obstacle object, int obst_id){
 void update_obst_id(int* obst_id){
     struct obstacle* temp = &(obstacles_list[*obst_id]);
     if (temp->x + temp->dim_x > 1 && temp->pass == 1){
-        temp->x -= 5;
+        if(temp->id < 5)
+            temp->x -= 5;
+        else if(temp->id < 10)
+            temp->x -= 8;
+        else{
+            temp->x -= 10;
+        }
         if (temp->y < 160 && temp->y > 70){
             if (rand() % 2 == 0)
                 temp->y += 2;
