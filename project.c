@@ -265,110 +265,126 @@ int main(void){
     int i = 0, points;
     int prev_id;
     volatile int * KEY_ptr = (int *) 0xFF200050;
-    int data; int duck = 0; int jump = 0;
+    int data; int duck = 0; int jump = 0; int jump_prev_mode = 3;
+    int play = 1; int restart = 0;
+    while(1){
+        while(obst_id < 9){
+            // Double buffering:
+            data = *(KEY_ptr);
+            if(data == 2){
+                mode_current = 4;
+                duck = 1;
+            }
+            else if (data != 2 && duck == 1){
+                duck = 0;
+                mode_current = 1;
+            }
+            else if (data == 1 && jump == 0){
+                jump_prev_mode = mode_current;
+                mode_current = 5;
+                jump = 1;
+            }
+            else if (data != 1 && jump == 1 && mode_current == 10){
+                jump = 0;
+                mode_current = 1;
+            }
+            // Erase first
+            if (mode_save < 4)
+                clear_player_pos(40, 150, mode_save);
+            else if (mode_save == 5)
+                clear_player_pos(40, 140, mode_save);
+            else if (mode_save == 6)
+                clear_player_pos(40, 130, mode_save);
+            else if (mode_save == 7)
+                clear_player_pos(40, 120, mode_save);
+            else if (mode_save == 8)
+                clear_player_pos(40, 120, mode_save);
+            else if (mode_save == 9)
+                clear_player_pos(40, 130, mode_save);
+            else if (mode_save == 10)
+                clear_player_pos(40, 140, mode_save);
 
-    while(obst_id < 9){
-        // Double buffering:
-        data = *(KEY_ptr);
-        if(data == 2){
-            mode_current = 4;
-            duck = 1;
-        }
-        else if (data != 2 && duck == 1){
-            duck = 0;
-            mode_current = 1;
-        }
-        else if (data == 1 && jump == 0){
-            mode_current = 5;
-            jump = 1;
-        }
-        else if (data != 1 && jump == 1 && mode_current == 10){
-            jump = 0;
-            mode_current = 1;
-        }
-        // Erase first
-        if (mode_save < 4)
-            clear_player_pos(40, 150, mode_save);
-        else if (mode_save == 5)
-            clear_player_pos(40, 140, mode_save);
-        else if (mode_save == 6)
-            clear_player_pos(40, 130, mode_save);
-        else if (mode_save == 7)
-            clear_player_pos(40, 120, mode_save);
-        else if (mode_save == 8)
-            clear_player_pos(40, 120, mode_save);
-        else if (mode_save == 9)
-            clear_player_pos(40, 130, mode_save);
-        else if (mode_save == 10)
-            clear_player_pos(40, 140, mode_save);
-
-        clear_obstacle(obstacles_list[obst_id], obst_id);
-
-        // Update obstacle position
-        update_obst_id(&obst_id);
-        i++;
-
-        // Now draw
-        if (mode_current == 4){
-            draw_player_pos(40, 180, mode_current);
-        }
-        else if (mode_current == 5){
-            draw_player_pos(40, 140, mode_current);
-        }
-        else if (mode_current == 6){
-            draw_player_pos(40, 130, mode_current);
-        }
-        else if (mode_current == 7){
-            draw_player_pos(40, 120, mode_current);
-        }
-        else if (mode_current == 8){
-            draw_player_pos(40, 120, mode_current);
-        }
-        else if (mode_current == 9){
-            draw_player_pos(40, 130, mode_current);
-        }
-        else if (mode_current == 10){
-            draw_player_pos(40, 140, mode_current);
-			jump = 0;
-        }
-        else{
-            draw_player_pos(40, 150, mode_current);
-        }
-        draw_obstacle(obstacles_list[obst_id], obst_id);
-        collision_check(obst_id, mode_current);
-        if(obstacles_list[obst_id].pass == 0){
             clear_obstacle(obstacles_list[obst_id], obst_id);
-        }
 
-        points = i % 100;
-        draw_grade_bar(points);
+            // Update obstacle position
+            update_obst_id(&obst_id);
+            i++;
 
-        // Update mode and save
+            // Now draw
+            if (mode_current == 4){ // Ducking
+                draw_player_pos(40, 180, mode_current);
+            }
+            else if (mode_current == 5){
+                draw_player_pos(40, 140, mode_current);
+            }
+            else if (mode_current == 6){
+                draw_player_pos(40, 130, mode_current);
+            }
+            else if (mode_current == 7){
+                draw_player_pos(40, 120, mode_current);
+            }
+            else if (mode_current == 8){
+                draw_player_pos(40, 120, mode_current);
+            }
+            else if (mode_current == 9){
+                draw_player_pos(40, 130, mode_current);
+            }
+            else if (mode_current == 10){
+                draw_player_pos(40, 140, mode_current);
+    			jump = 0;
+            }
+            else{
+                draw_player_pos(40, 150, mode_current);
+            }
+            draw_obstacle(obstacles_list[obst_id], obst_id);
+            collision_check(obst_id, mode_current);
+            if(obstacles_list[obst_id].pass == 0){
+                clear_obstacle(obstacles_list[obst_id], obst_id);
+            }
 
-        if(mode_current == 3 || mode_current == 10){
-          mode_current = 1;
-        }
-        else{
-          mode_current += 1;
-        }
+            points = i % 100;
+            draw_grade_bar(points);
 
-        if(mode_current == 1){
-          mode_save = 2;
-        }
-        else if(mode_current == 2){
-          mode_save = 3;
-        }
-        else if(mode_current == 3){
-          mode_save = 1;
-        }
+            // Update mode and save
 
-        // For jumping
-        if (mode_current >= 5 && mode_current <= 10){
-          mode_save = mode_current - 2;
+            if(mode_current == 3 || mode_current == 10){
+              mode_current = 1;
+            }
+            else if (mode_current != 4){
+              mode_current += 1;
+            }
+            else if (mode_current == 4 && duck == 1){
+                mode_current = 4;
+            }
+
+            if(mode_current == 1){
+              mode_save = 2;
+            }
+            else if(mode_current == 2){
+              mode_save = 3;
+            }
+            else if(mode_current == 3){
+              mode_save = 1;
+            }
+
+            // For jumping
+            if (mode_current >= 7 && mode_current <= 10){
+              mode_save = mode_current - 2;
+            }
+            else if (mode_current == 6 || mode_current == 5){
+                mode_save = jump_prev_mode;
+            }
+            wait_for_vsync(); // swap front and back buffers on VGA vertical sync
+            pixel_buffer_start = *(pixel_ctrl_ptr + 1); // new back buffer
         }
-        wait_for_vsync(); // swap front and back buffers on VGA vertical sync
-        pixel_buffer_start = *(pixel_ctrl_ptr + 1); // new back buffer
+    while(!restart){
+        data = *(KEY_ptr);
+        if (data == 4){
+            restart = 1;
+        }
     }
+    restart = 0;
+    obst_id = 1;
     // char* hw = "Hello, world!";
     // int x_char = 15;
     // while (*hw) {
@@ -377,6 +393,7 @@ int main(void){
     	//  hw++;
     //  }
     // draw_player_pos(0, 0);
+    }
 }
 
 void draw_obstacle(struct obstacle object, int obst_id){
