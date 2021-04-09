@@ -490,7 +490,7 @@ int main(void){
             restart = 1;
         }
     }
-    
+
     while(restart){
         data = *(KEY_ptr);
         if (data != 4){
