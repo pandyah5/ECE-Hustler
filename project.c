@@ -287,7 +287,7 @@ int main(void){
             else if (data != 1 && jump == 1 && mode_current == 10){
                 jump = 0;
                 mode_current = 1;
-                mode_save = 9;
+                mode_save = 8;
             }
             // Erase first
             if (mode_save < 4)
@@ -347,6 +347,13 @@ int main(void){
             draw_grade_bar(points);
 
             // Update mode and save
+			            // For jumping
+            if (mode_current >= 7 && mode_current <= 10){
+              mode_save = mode_current - 1;
+            }
+            else if (mode_current == 6 || mode_current == 5){
+                mode_save = jump_prev_mode;
+            }
 
             if(mode_current == 3 || mode_current == 10){
               mode_current = 1;
@@ -368,16 +375,12 @@ int main(void){
               mode_save = 1;
             }
 
-            // For jumping
-            if (mode_current >= 7 && mode_current <= 10){
-              mode_save = mode_current - 2;
-            }
-            else if (mode_current == 6 || mode_current == 5){
-                mode_save = jump_prev_mode;
-            }
             wait_for_vsync(); // swap front and back buffers on VGA vertical sync
             pixel_buffer_start = *(pixel_ctrl_ptr + 1); // new back buffer
         }
+
+    // Draw game over
+
     while(!restart){
         data = *(KEY_ptr);
         if (data == 4){
@@ -386,6 +389,9 @@ int main(void){
     }
     restart = 0;
     obst_id = 1;
+
+    // Draw new background
+
     // char* hw = "Hello, world!";
     // int x_char = 15;
     // while (*hw) {
@@ -637,7 +643,8 @@ void clear_player_pos(int x, int y, int mode){
         dim_x = 59; dim_y = 89;
     }
     else if (mode == 2){
-        dim_x = 59; dim_y = 88;
+        dim_x = 59; dim_y = 108;
+		y -= 20;
     }
     else if (mode == 3){
         dim_x = 59; dim_y = 88;
