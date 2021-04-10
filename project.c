@@ -133,6 +133,8 @@ void clear_obstacle(struct obstacle object, int obst_id);
 void collision_check(int obst_id, int mode);
 void update_obst_id(int* obst_id);
 void draw_game_over();
+void keyboard_read(unsigned char* pressedKey);
+
 // Vector of obstacle ID's
 struct obstacle obstacles_list[15];
 
@@ -180,109 +182,108 @@ int main(void){
     // Global variable that stores the score of the player
     int score = 100;
 
-	/*-----------------------OBSTACLE ID LIST------------------------------*/
-	// 1: ECE_216 - Obstacle 1 - Sin wave
-	obstacles_list[0].id = 0;
-	obstacles_list[0].course_id = 216;
-	obstacles_list[0].points = 8;
-	obstacles_list[0].pass = 1;
-	obstacles_list[0].image = obst_216_1;
-	obstacles_list[0].dim_x = 90;
-	obstacles_list[0].dim_y = 30;
-	obstacles_list[0].x = 319;
-	obstacles_list[0].y = 140;
+    /*-----------------------OBSTACLE ID LIST------------------------------*/
+    // 1: ECE_216 - Obstacle 1 - Sin wave
+    obstacles_list[0].id = 0;
+    obstacles_list[0].course_id = 216;
+    obstacles_list[0].points = 8;
+    obstacles_list[0].pass = 1;
+    obstacles_list[0].image = obst_216_1;
+    obstacles_list[0].dim_x = 90;
+    obstacles_list[0].dim_y = 30;
+    obstacles_list[0].x = 319;
+    obstacles_list[0].y = 140;
 
     //2: 216 obst 2 - Audio wave
     obstacles_list[1].id = 1;
-	obstacles_list[1].course_id = 216;
-	obstacles_list[1].points = 8;
-	obstacles_list[1].pass = 1;
-	obstacles_list[1].image = obst_216_2;
-	obstacles_list[1].dim_x = 127;
-	obstacles_list[1].dim_y = 50;
-	obstacles_list[1].x = 319;
-	obstacles_list[1].y = 100;
+    obstacles_list[1].course_id = 216;
+    obstacles_list[1].points = 8;
+    obstacles_list[1].pass = 1;
+    obstacles_list[1].image = obst_216_2;
+    obstacles_list[1].dim_x = 127;
+    obstacles_list[1].dim_y = 50;
+    obstacles_list[1].x = 319;
+    obstacles_list[1].y = 100;
 
-	// 3: 216 obst 3 55,54 - MATLAB
+    // 3: 216 obst 3 55,54 - MATLAB
     obstacles_list[2].id = 2;
-	obstacles_list[2].course_id = 216;
-	obstacles_list[2].points = 7;
-	obstacles_list[2].pass = 1;
-	obstacles_list[2].image = obst_216_3;
-	obstacles_list[2].dim_x = 55;
-	obstacles_list[2].dim_y = 54;
-	obstacles_list[2].x = 319;
-	obstacles_list[2].y = 150;
+    obstacles_list[2].course_id = 216;
+    obstacles_list[2].points = 7;
+    obstacles_list[2].pass = 1;
+    obstacles_list[2].image = obst_216_3;
+    obstacles_list[2].dim_x = 55;
+    obstacles_list[2].dim_y = 54;
+    obstacles_list[2].x = 319;
+    obstacles_list[2].y = 150;
 
-  // 4: 221 obst 1  160,35 - NO BACKTRACKING
+    // 4: 221 obst 1  160,35 - NO BACKTRACKING
     obstacles_list[3].id = 3;
-	obstacles_list[3].course_id = 221;
-	obstacles_list[3].points = 8;
-	obstacles_list[3].pass = 1;
-	obstacles_list[3].image = obst_221_1;
-	obstacles_list[3].dim_x = 160;
-	obstacles_list[3].dim_y = 35;
-	obstacles_list[3].x = 319;
-	obstacles_list[3].y = 140;
+    obstacles_list[3].course_id = 221;
+    obstacles_list[3].points = 8;
+    obstacles_list[3].pass = 1;
+    obstacles_list[3].image = obst_221_1;
+    obstacles_list[3].dim_x = 160;
+    obstacles_list[3].dim_y = 35;
+    obstacles_list[3].x = 319;
+    obstacles_list[3].y = 140;
 
 
-  // 5: 221 obst 2  105,86- Q7
-  obstacles_list[4].id = 4;
-  obstacles_list[4].course_id = 221;
-  obstacles_list[4].points = 8;
-  obstacles_list[4].pass = 1;
-  obstacles_list[4].image = obst_221_2;
-  obstacles_list[4].dim_x = 105;
-  obstacles_list[4].dim_y = 86;
-  obstacles_list[4].x = 319;
-  obstacles_list[4].y = 100;
+    // 5: 221 obst 2  105,86- Q7
+    obstacles_list[4].id = 4;
+    obstacles_list[4].course_id = 221;
+    obstacles_list[4].points = 8;
+    obstacles_list[4].pass = 1;
+    obstacles_list[4].image = obst_221_2;
+    obstacles_list[4].dim_x = 105;
+    obstacles_list[4].dim_y = 86;
+    obstacles_list[4].x = 319;
+    obstacles_list[4].y = 100;
 
-  // 6: 231 obst 1 84,64 - LT Spice
-  obstacles_list[5].id = 5;
-  obstacles_list[5].course_id = 231;
-  obstacles_list[5].points = 7;
-  obstacles_list[5].pass = 1;
-  obstacles_list[5].image = obst_231_1;
-  obstacles_list[5].dim_x = 84;
-  obstacles_list[5].dim_y = 64;
-  obstacles_list[5].x = 319;
-  obstacles_list[5].y = 175;
+    // 6: 231 obst 1 84,64 - LT Spice
+    obstacles_list[5].id = 5;
+    obstacles_list[5].course_id = 231;
+    obstacles_list[5].points = 7;
+    obstacles_list[5].pass = 1;
+    obstacles_list[5].image = obst_231_1;
+    obstacles_list[5].dim_x = 84;
+    obstacles_list[5].dim_y = 64;
+    obstacles_list[5].x = 319;
+    obstacles_list[5].y = 175;
 
-  // 7: 231 obst 2  168,33 - 231 equation
-  obstacles_list[6].id = 6;
-  obstacles_list[6].course_id = 231;
-  obstacles_list[6].points = 8;
-  obstacles_list[6].pass = 1;
-  obstacles_list[6].image = obst_231_2;
-  obstacles_list[6].dim_x = 168;
-  obstacles_list[6].dim_y = 33;
-  obstacles_list[6].x = 319;
-  obstacles_list[6].y = 100;
+    // 7: 231 obst 2  168,33 - 231 equation
+    obstacles_list[6].id = 6;
+    obstacles_list[6].course_id = 231;
+    obstacles_list[6].points = 8;
+    obstacles_list[6].pass = 1;
+    obstacles_list[6].image = obst_231_2;
+    obstacles_list[6].dim_x = 168;
+    obstacles_list[6].dim_y = 33;
+    obstacles_list[6].x = 319;
+    obstacles_list[6].y = 100;
 
-  // 8: 243 obst 1  141, 54 - Modelsim logo
-  obstacles_list[7].id = 7;
-  obstacles_list[7].course_id = 243;
-  obstacles_list[7].points = 7;
-  obstacles_list[7].pass = 1;
-  obstacles_list[7].image = obst_243_1;
-  obstacles_list[7].dim_x = 141;
-  obstacles_list[7].dim_y = 54;
-  obstacles_list[7].x = 319;
-  obstacles_list[7].y = 100;
+    // 8: 243 obst 1  141, 54 - Modelsim logo
+    obstacles_list[7].id = 7;
+    obstacles_list[7].course_id = 243;
+    obstacles_list[7].points = 7;
+    obstacles_list[7].pass = 1;
+    obstacles_list[7].image = obst_243_1;
+    obstacles_list[7].dim_x = 141;
+    obstacles_list[7].dim_y = 54;
+    obstacles_list[7].x = 319;
+    obstacles_list[7].y = 100;
 
-  // 9: 243 obst 2  98,96 - processor
-  obstacles_list[8].id = 8;
-  obstacles_list[8].course_id = 243;
-  obstacles_list[8].points = 8;
-  obstacles_list[8].pass = 1;
-  obstacles_list[8].image = obst_243_2;
-  obstacles_list[8].dim_x = 98;
-  obstacles_list[8].dim_y = 96;
-  obstacles_list[8].x = 319;
-  obstacles_list[8].y = 80;
+    // 9: 243 obst 2  98,96 - processor
+    obstacles_list[8].id = 8;
+    obstacles_list[8].course_id = 243;
+    obstacles_list[8].points = 8;
+    obstacles_list[8].pass = 1;
+    obstacles_list[8].image = obst_243_2;
+    obstacles_list[8].dim_x = 98;
+    obstacles_list[8].dim_y = 96;
+    obstacles_list[8].x = 319;
+    obstacles_list[8].y = 80;
 
-
-  // 10: 221 obst 3(lifeline)  100,68 - curve
+    // 10: 221 obst 3(lifeline)  100,68 - curve
     obstacles_list[9].id = 9;
     obstacles_list[9].course_id = 221;
     obstacles_list[9].points = -7;
@@ -348,39 +349,55 @@ int main(void){
     obstacles_list[14].x = 319;
     obstacles_list[14].y = 100;
 
-
-	/*---------------------------------------------------------------------*/
+    /*---------------------------------------------------------------------*/
 
 
     int prev_id;
 
     volatile int * KEY_ptr = (int *) 0xFF200050;
     int data; int duck = 0; int jump = 0; int jump_prev_mode = 3;
+    unsigned char pressedKey = 0;
 
     int play = 1; int restart = 0; int jump_delay = 10;
-
+    int duck_delay_off = 10;
+    int duck_delay_on = 10;
     while(1){
         while(obst_id < 15){
             // Double buffering:
             data = *(KEY_ptr);
-            if(data == 2){
+            pressedKey = 0;
+            keyboard_read(&pressedKey);
+            if (duck_delay_off != 0){
+                duck_delay_off--;
+            }
+            if (duck_delay_on != 0){
+                duck_delay_on--;
+            }
+            if(pressedKey == 0x72 && duck == 0 && duck_delay_on == 0){
+                printf("ON \n");
                 mode_current = 4;
                 duck = 1;
+                duck_delay_off = 10;
+                duck_delay_on = 10;
             }
-            else if (data != 2 && duck == 1){
+            else if (pressedKey == 0x72 && duck == 1 && duck_delay_off == 0){
+                printf("OFF \n");
                 duck = 0;
                 mode_current = 1;
+                duck_delay_off = 10;
+                duck_delay_on = 10;
             }
-            else if (data == 1 && jump == 0){
+            else if (pressedKey == 0x75 && jump == 0){
                 jump_prev_mode = mode_current;
                 mode_current = 5;
                 jump = 1;
             }
-            else if (data != 1 && jump == 1 && mode_current == 10){
+            else if (pressedKey == 0x75 && jump == 1 && mode_current == 10){
                 jump = 0;
                 mode_current = 1;
                 mode_save = 8;
             }
+
             // Erase first
             if (mode_save < 4)
                 clear_player_pos(40, 150, mode_save);
@@ -396,7 +413,6 @@ int main(void){
                 clear_player_pos(40, 120, mode_save);
             else if (mode_save == 10)
                 clear_player_pos(40, 135, mode_save);
-
             clear_obstacle(obstacles_list[obst_id], obst_id);
 
             // Update obstacle position
@@ -430,6 +446,8 @@ int main(void){
                 draw_player_pos(40, 150, mode_current);
             }
             draw_obstacle(obstacles_list[obst_id], obst_id);
+
+            // Collision checks
             collision_check(obst_id, mode_current);
             if(obstacles_list[obst_id].pass == 0){
                 clear_obstacle(obstacles_list[obst_id], obst_id);
@@ -484,20 +502,20 @@ int main(void){
     wait_for_vsync(); // swap front and back buffers on VGA vertical sync
     pixel_buffer_start = *(pixel_ctrl_ptr + 1); // new back buffer
 
+    // Initialize pass for all obstacles_list
+
     while(!restart){
-        data = *(KEY_ptr);
-        if (data == 4){
+        keyboard_read(&pressedKey);
+        if (pressedKey == 0x29){
             restart = 1;
         }
     }
-<<<<<<< HEAD
-
-    while(restart){
-        data = *(KEY_ptr);
-        if (data != 4){
-            restart = 0;
-        }
-    }
+    // while(restart){
+    //     keyboard_read(&pressedKey);
+    //     if (pressedKey != 0x29){
+    //         restart = 0;
+    //     }
+    // }
 
     draw_background();
     wait_for_vsync(); // swap front and back buffers on VGA vertical sync
@@ -505,23 +523,7 @@ int main(void){
     draw_background();
     points = 100;
     obst_id = 0;
-=======
-    while(restart){
-      data = *(KEY_ptr);
-      if (data != 4){
-          restart = 0;
-      }
-    }
-    //clear_screen();
-    wait_for_vsync(); // swap front and back buffers on VGA vertical sync
-    pixel_buffer_start = *(pixel_ctrl_ptr + 1); // new back buffer
-    draw_background();
 
-    obst_id = 0;
-    points = 100;
-
-    // Draw new background
->>>>>>> 6b3c06a71e5de6acbffe6c4fde824496095fa0bf
 
     // char* hw = "Hello, world!";
     // int x_char = 15;
@@ -584,6 +586,21 @@ void update_obst_id(int* obst_id){
     else{
         *obst_id += 1;
     }
+}
+
+void keyboard_read(unsigned char* pressedKey){
+    volatile int* PS2_ptr = (int *) 0xFF200100;
+    int key_data = *PS2_ptr;
+
+
+    if (key_data & 0x8000){
+        key_data = *PS2_ptr;
+    }
+    else{
+        key_data = 0;
+    }
+    // Reset value
+    *pressedKey = key_data & 0xFF;
 }
 
 void collision_check(int obst_id, int mode){
