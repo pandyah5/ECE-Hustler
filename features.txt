@@ -1,0 +1,14 @@
+1) dynamic color Life bar / Grade bar
+2) Walking, jumping and ducking animations
+3) Obstacles description
+4) Intro screen and instructions
+5) Push buttons and keyboard
+6) random y values of obstacles
+7) dynamic speed of obstacles
+8) highscore
+9) dynamic score printed on game over
+10) game over screen
+11) collision control
+12) crash control - Jump and duck safety check - reality
+13) No warnings
+14) GitHub
