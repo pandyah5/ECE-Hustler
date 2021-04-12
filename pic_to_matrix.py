@@ -39,4 +39,4 @@ def generate_hex_code(source, destination):
     f.close()
 
 # Source, destination
-generate_hex_code("D:\\Hetav Documents\\UofT\Academic Planning\\ECE 243\\Final Project\Pictures\\cloud_final.png", "back.txt")
+generate_hex_code("D:\\Hetav Documents\\UofT\Academic Planning\\ECE 243\\Final Project\Pictures\\cloud_final_cn.png", "back.txt")
