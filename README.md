@@ -9,6 +9,11 @@ The task list can be found on monday.com with a detailed list of tasks and deadl
 ![image](https://user-images.githubusercontent.com/60848863/117519164-93744280-af70-11eb-8cc4-6c0bea0181b3.png)
 
 # Final Result
+
+------
+
+You can play it for yourself at https://cpulator.01xz.net/?sys=arm-de1soc&d_audio=48000https://cpulator.01xz.net/?sys=arm-de1soc&d_audio=48000. Just paste in the code provided in project.c and have a nice time :)
+
 ------
 ## Start mode:
 ![image](https://user-images.githubusercontent.com/60848863/117519405-52306280-af71-11eb-884b-b911790ce047.png)
