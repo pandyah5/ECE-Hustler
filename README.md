@@ -1,5 +1,5 @@
 # ECE-Hustler
-Our ECE 243 final project to build an obstacle course compiled using the ARM processor and displayed on a VGA display
+Our ECE 243 final project to build an obstacle course compiled using the ARM processor and displayed on a VGA display. In this game you are one of us: An ECE student in the fourth semester at the University of Toronto. In this game you will be exposed to the obstacles faced by an ECE student and you will have to dodge them by jumping or ducking them.
 
 # Disclaimer
 We have made the code public only for educational purposes. Reusing the code or any part of it may lead to academic offence and we are not responsible for it. We want to clarify the code is to be used as a reference and should NOT be copied for graded/un-graded assignments/tests.
